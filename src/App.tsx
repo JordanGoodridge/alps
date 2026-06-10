@@ -30,6 +30,15 @@ import {
   Coffee
 } from "lucide-react";
 
+// Hero Rotating Background Images
+const HERO_IMAGES = [
+  { url: `${import.meta.env.BASE_URL}assets/.aistudio/hero.jpg`, alt: "Majestic mountains on Bluebird sky expedition" },
+  { url: `${import.meta.env.BASE_URL}assets/.aistudio/hero2.jpg`, alt: "Alpine peaks bathed in golden light" },
+  { url: `${import.meta.env.BASE_URL}assets/.aistudio/hero3.jpg`, alt: "Pristine powder slopes under clear skies" },
+  { url: `${import.meta.env.BASE_URL}assets/.aistudio/hero4.jpg`, alt: "Snow-covered valleys at dawn" },
+  { url: `${import.meta.env.BASE_URL}assets/.aistudio/hero5.webp`, alt: "Panoramic alpine vista" },
+];
+
 // Chalet Carousel Hotlinked Images
 const CHALET_SLIDES = [
   {
@@ -195,6 +204,9 @@ export default function App() {
   const [carouselIndex, setCarouselIndex] = useState(1); // Standard starts at 1
   const carouselInterval = useRef<NodeJS.Timeout | null>(null);
 
+  // Hero Rotation State
+  const [heroIndex, setHeroIndex] = useState(0);
+
   // Countdown State
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -246,6 +258,14 @@ export default function App() {
     }, 1000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  // Hero Image Auto-Rotation
+  useEffect(() => {
+    const heroTimer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 6000);
+    return () => clearInterval(heroTimer);
   }, []);
 
   // Handle Carousel Rotation
@@ -374,22 +394,35 @@ export default function App() {
         id="hero" 
         className="relative min-h-screen flex flex-col justify-end pt-28 pb-16 px-6 md:px-16 bg-gradient-to-b from-[#0c0e14]/70 via-[#0c0e14]/80 to-[#0c0e14] overflow-hidden"
       >
-        {/* Background Image of high altitude pristine weather */}
+        {/* Rotating Hero Background Images */}
         <div className="absolute inset-0 z-0">
-          <img 
-            className="w-full h-full object-cover grayscale-[35%] contrast-[1.2] brightness-[0.4]"
-            src={`${import.meta.env.BASE_URL}assets/.aistudio/hero.jpg`}
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              const fallback = "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2952&auto=format&fit=crop";
-              if (target.src !== fallback) {
-                target.src = fallback;
-              }
-            }}
-            alt="Majestic mountains on Bluebird sky expedition"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e14] via-transparent to-[#0c0e14]/40"></div>
+          <AnimatePresence mode="sync">
+            <motion.img
+              key={heroIndex}
+              src={HERO_IMAGES[heroIndex].url}
+              alt={HERO_IMAGES[heroIndex].alt}
+              className="absolute inset-0 w-full h-full object-cover grayscale-[35%] contrast-[1.2] brightness-[0.4]"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              referrerPolicy="no-referrer"
+            />
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e14] via-transparent to-[#0c0e14]/40 z-[1]"></div>
+
+          {/* Hero slide indicators */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[2] flex gap-2">
+            {HERO_IMAGES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setHeroIndex(idx)}
+                className={`h-1 rounded-full transition-all duration-500 ${
+                  heroIndex === idx ? "w-8 bg-[#e9c349]" : "w-3 bg-white/30 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
