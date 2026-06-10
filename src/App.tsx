@@ -27,7 +27,9 @@ import {
   Clock,
   Lock,
   Music,
-  Coffee
+  Coffee,
+  Menu,
+  X
 } from "lucide-react";
 
 // Hero Rotating Background Images
@@ -200,6 +202,9 @@ export default function App() {
   // Navigation active state
   const [activeTab, setActiveTab] = useState("destination");
 
+  // Mobile menu open state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   // Carousel State
   const [carouselIndex, setCarouselIndex] = useState(1); // Standard starts at 1
   const carouselInterval = useRef<NodeJS.Timeout | null>(null);
@@ -306,7 +311,7 @@ export default function App() {
       <header className="fixed top-0 w-full bg-[#0c0e14]/90 border-b border-[#e9c349]/30 backdrop-blur-md z-40">
         <div className="flex justify-between items-center px-6 md:px-16 py-3 max-w-7xl mx-auto font-sans">
           {/* Logo */}
-          <div className="font-display text-2xl md:text-3xl tracking-widest text-[#e9c349] flex items-center gap-2">
+          <div className="font-display text-lg sm:text-2xl md:text-3xl tracking-widest text-[#e9c349] flex items-center gap-2">
             <span className="w-1.5 h-6 bg-[#e9c349] inline-block rounded-full"></span>
             LES 3 VALLÉES 2027
           </div>
@@ -376,18 +381,107 @@ export default function App() {
           </nav>
 
           {/* Quick Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <a 
               href="https://partiful.com/e/OTJC8p2jW3qjwJDjhT84?c=R0xhMUpZ" 
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-1.5 font-display text-xs tracking-widest uppercase border border-[#e9c349] bg-[#e9c349] text-[#0c0e14] hover:bg-[#0c0e14] hover:text-[#e9c349] transition-all rounded-lg block text-center"
+              className="hidden sm:block px-5 py-1.5 font-display text-xs tracking-widest uppercase border border-[#e9c349] bg-[#e9c349] text-[#0c0e14] hover:bg-[#0c0e14] hover:text-[#e9c349] transition-all rounded-lg block text-center"
             >
               RSVP ON PARTIFUL
             </a>
+
+            {/* Hamburger Button */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="block md:hidden text-[#e9c349] p-2 hover:bg-[#141822] rounded-lg transition-colors"
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Drawer Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 md:hidden"
+            />
+            
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-0 bottom-0 w-80 bg-[#0c0e14]/95 backdrop-blur-lg border-l border-[#e9c349]/20 z-50 p-6 flex flex-col justify-between md:hidden shadow-2xl font-sans"
+            >
+              <div>
+                {/* Header */}
+                <div className="flex justify-between items-center pb-6 border-b border-[#e9c349]/10 mb-8">
+                  <div className="font-display text-lg tracking-widest text-[#e9c349] flex items-center gap-2">
+                    <span className="w-1.5 h-5 bg-[#e9c349] inline-block rounded-full"></span>
+                    LES 3 VALLÉES
+                  </div>
+                  <button 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-[#c4c6cf] hover:text-[#e9c349] p-1 rounded-lg hover:bg-white/5 transition-colors"
+                    aria-label="Close Menu"
+                  >
+                    <X size={22} />
+                  </button>
+                </div>
+
+                {/* Links */}
+                <nav className="flex flex-col gap-6">
+                  {[
+                    { id: "destination", label: "The Destination", href: "#hero" },
+                    { id: "chalet", label: "Chalet", href: "#chalet" },
+                    { id: "mountain", label: "The Mountain", href: "#the-mountain" },
+                    { id: "pistemap", label: "3 Vallées Map", href: "#piste-map" },
+                    { id: "logistics", label: "Logistics", href: "#logistics" }
+                  ].map((link) => (
+                    <a
+                      key={link.id}
+                      href={link.href}
+                      onClick={() => {
+                        setActiveTab(link.id);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`font-display text-base tracking-widest uppercase py-2 border-b border-white/5 transition-colors ${
+                        activeTab === link.id ? "text-[#e9c349] font-medium" : "text-[#c4c6cf] hover:text-[#e9c349]"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Mobile RSVP Action */}
+              <div className="pt-6 border-t border-[#e9c349]/10">
+                <a
+                  href="https://partiful.com/e/OTJC8p2jW3qjwJDjhT84?c=R0xhMUpZ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-3 font-display text-xs tracking-widest uppercase border border-[#e9c349] bg-[#e9c349] text-[#0c0e14] hover:bg-[#0c0e14] hover:text-[#e9c349] transition-all rounded-lg block text-center font-bold"
+                >
+                  RSVP ON PARTIFUL
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <section 
@@ -431,7 +525,7 @@ export default function App() {
               <p className="font-display text-sm text-[#e9c349] uppercase tracking-[0.25em] mb-4">
                 Les 3 Vallées 2027 Group Expedition
               </p>
-              <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase">
+              <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase">
                 LES 3 VALLÉES
               </h1>
             </div>
@@ -1039,11 +1133,11 @@ export default function App() {
               <p className="text-[10px] text-gray-400 uppercase tracking-widest">
                 💡 Navigation Tip: On desktops, use your trackpad or scrollbars to pan left, right, and zoom closely into separate chairlift paths.
               </p>
-              <div className="flex justify-center gap-6 text-[10px] font-mono text-[#e9c349]/70">
+              <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 text-[10px] font-mono text-[#e9c349]/70 text-center">
                 <span>Central Valley: Méribel (1,450m)</span>
-                <span>•</span>
+                <span className="hidden md:inline">•</span>
                 <span>Left Sector: Courchevel (1,850m)</span>
-                <span>•</span>
+                <span className="hidden md:inline">•</span>
                 <span>Right Sector: Les Menuires & Val Thorens (2,300m)</span>
               </div>
             </div>
@@ -1071,7 +1165,7 @@ export default function App() {
               The Alpine Escape Experience
             </p>
             <h2 className="font-display text-4xl md:text-5xl text-slate-900 tracking-widest uppercase">
-              MÃ‰RIBEL OFF-SLOPES & LIFE
+              MÉRIBEL OFF-SLOPES & LIFE
             </h2>
             <p className="text-sm text-slate-500 mt-3 max-w-xl mx-auto font-sans">
               An expedition is about more than just carving down slopes. Experience a fluid, friction-free day of luxury, culinary mastery, and carefree town strolls.
@@ -1090,7 +1184,7 @@ export default function App() {
               <button
                 key={tab.id}
                 onClick={() => setActiveLifestyleTab(tab.id)}
-                className={`flex flex-col items-center text-center px-4 md:px-6 py-3.5 rounded-2xl border transition-all duration-300 min-w-[140px] md:min-w-[180px] font-sans ${
+                className={`flex flex-col items-center text-center px-2 sm:px-4 md:px-6 py-3 rounded-2xl border transition-all duration-300 flex-1 min-w-[110px] sm:min-w-[140px] md:min-w-[180px] font-sans ${
                   activeLifestyleTab === tab.id
                     ? "bg-amber-500 border-amber-500 text-white shadow-xl shadow-amber-500/10 hover:shadow-2xl"
                     : "bg-slate-50 border-slate-200/60 text-slate-600 hover:bg-slate-100/80 hover:border-slate-300"
@@ -1383,7 +1477,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* TIMELINE TAB: AFTERNOON APRÃˆS-SKI CABARETS */}
+              {/* TIMELINE TAB: AFTERNOON APRÈS-SKI CABARETS */}
               {activeLifestyleTab === "afternoon" && (
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch font-sans">
                   {/* Left Column: Image Card */}
@@ -1519,7 +1613,7 @@ export default function App() {
                     </div>
 
                     <div className="mt-6 pt-4 border-t border-slate-200 text-[11px] text-slate-500 italic block">
-                      * Cooking logs: Local bio markets are dynamic and easily accessible in nearby MoÃ»tiers bases for fresh ingredients.
+                      * Cooking logs: Local bio markets are dynamic and easily accessible in nearby Moûtiers bases for fresh ingredients.
                     </div>
                   </div>
 
@@ -1606,7 +1700,7 @@ export default function App() {
                   </div>
                   <div className="p-3.5 bg-white border border-slate-200 rounded-xl shadow-xs">
                     <h4 className="font-sans text-xs font-bold text-slate-800 uppercase tracking-wider mb-1">
-                      MoÃ»tiers Cheese Circuit
+                      Moûtiers Cheese Circuit
                     </h4>
                     <p className="text-slate-500 text-[11px] font-sans leading-normal">
                       Tour native Beaufort cheese manufacturing plants, followed by a street art trek through alleys.
