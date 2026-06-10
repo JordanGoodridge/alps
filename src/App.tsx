@@ -495,7 +495,7 @@ export default function App() {
               key={heroIndex}
               src={HERO_IMAGES[heroIndex].url}
               alt={HERO_IMAGES[heroIndex].alt}
-              className="absolute inset-0 w-full h-full object-cover contrast-[1.1] brightness-[0.65]"
+              className="absolute inset-0 w-full h-full object-cover contrast-[1.2] brightness-[0.75] saturate-[1.3]"
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
