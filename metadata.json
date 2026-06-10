@@ -1,0 +1,6 @@
+{
+  "name": "Les 3 Vallées 2027 Expedition",
+  "description": "Premium luxury alpine expedition planner, logistics tracker, and AI advisor for Les 3 Vallées 2027.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
