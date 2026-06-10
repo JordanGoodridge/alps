@@ -378,7 +378,7 @@ export default function App() {
         <div className="absolute inset-0 z-0">
           <img 
             className="w-full h-full object-cover grayscale-[35%] contrast-[1.2] brightness-[0.4]"
-            src=`${import.meta.env.BASE_URL}assets/.aistudio/hero.jpg`
+            src={`${import.meta.env.BASE_URL}assets/.aistudio/hero.jpg`}
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               const fallback = "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=2952&auto=format&fit=crop";
@@ -860,7 +860,7 @@ export default function App() {
                 <img 
                    alt="Les 3 VallÃ©es Piste Map" 
                   className="w-full h-full object-cover grayscale-[10%] group-hover:scale-[1.01] transition-transform duration-700 cursor-zoom-in" 
-                  src=`${import.meta.env.BASE_URL}assets/.aistudio/skimap.jpg`
+                  src={`${import.meta.env.BASE_URL}assets/.aistudio/skimap.jpg`}
                   onClick={() => setMapZoomed(true)}
                   referrerPolicy="no-referrer"
                 />
@@ -993,7 +993,7 @@ export default function App() {
             <div className="flex-grow flex items-center justify-center overflow-auto my-6 p-4">
               <div className="max-w-[1700px] w-full max-h-[85vh] overflow-auto select-none bg-black border border-gray-800 group relative">
                 <img 
-                  src=`${import.meta.env.BASE_URL}assets/.aistudio/skimap.jpg`
+                  src={`${import.meta.env.BASE_URL}assets/.aistudio/skimap.jpg`}
                   alt="High Res Piste Map"
                   className="w-full h-auto min-w-[1200px] object-contain cursor-grab active:cursor-grabbing"
                   referrerPolicy="no-referrer"
@@ -1356,7 +1356,7 @@ export default function App() {
                   {/* Left Column: Image Card */}
                   <div className="lg:col-span-6 bg-slate-950 text-white p-2 flex flex-col justify-end relative h-[450px] min-h-[400px] overflow-hidden group rounded-2xl shadow-xl border border-slate-800">
                     <img
-                      src=`${import.meta.env.BASE_URL}assets/.aistudio/lafolie.jpg`
+                      src={`${import.meta.env.BASE_URL}assets/.aistudio/lafolie.jpg`}
                       alt="MÃ©ribel vibrant aprÃ¨s-ski scene"
                       referrerPolicy="no-referrer"
                       className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] object-cover rounded-xl opacity-60 group-hover:opacity-75 transition-all duration-700"
