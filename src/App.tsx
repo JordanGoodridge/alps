@@ -486,7 +486,7 @@ export default function App() {
       {/* Hero Section */}
       <section 
         id="hero" 
-        className="relative min-h-screen flex flex-col justify-end pt-28 pb-16 px-6 md:px-16 bg-gradient-to-b from-[#0c0e14]/70 via-[#0c0e14]/80 to-[#0c0e14] overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-end pt-28 pb-16 px-6 md:px-16 bg-[#0c0e14] overflow-hidden"
       >
         {/* Rotating Hero Background Images */}
         <div className="absolute inset-0 z-0">
@@ -495,7 +495,7 @@ export default function App() {
               key={heroIndex}
               src={HERO_IMAGES[heroIndex].url}
               alt={HERO_IMAGES[heroIndex].alt}
-              className="absolute inset-0 w-full h-full object-cover grayscale-[35%] contrast-[1.2] brightness-[0.4]"
+              className="absolute inset-0 w-full h-full object-cover contrast-[1.1] brightness-[0.65]"
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -503,7 +503,7 @@ export default function App() {
               referrerPolicy="no-referrer"
             />
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e14] via-transparent to-[#0c0e14]/40 z-[1]"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e14] via-[#0c0e14]/50 to-transparent z-[1]"></div>
 
           {/* Hero slide indicators */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[2] flex gap-2">
@@ -522,10 +522,16 @@ export default function App() {
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-8 mb-12 pb-10 border-b border-[#e9c349]/20">
             <div>
-              <p className="font-display text-sm text-[#e9c349] uppercase tracking-[0.25em] mb-4">
+              <p 
+                className="font-display text-sm text-[#e9c349] uppercase tracking-[0.25em] mb-4"
+                style={{ textShadow: "0 2px 10px rgba(0,0,0,0.6)" }}
+              >
                 Jordan's Les 3 Vallées 2027 Expedition
               </p>
-              <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase">
+              <h1 
+                className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase"
+                style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.8)" }}
+              >
                 LES 3 VALLÉES
               </h1>
             </div>
