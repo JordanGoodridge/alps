@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Flame, 
@@ -62,7 +62,7 @@ const CHALET_SLIDES = [
 // Resorts Data
 const RESORTS_DATA = [
   {
-    name: "MÃ©ribel",
+    name: "Méribel",
     tag: "OUR HOME BASE",
     elevation: "1450m - 2952m",
     imgUrl: `${import.meta.env.BASE_URL}assets/.aistudio/meribel.jpg`,
@@ -114,7 +114,7 @@ const RESORTS_DATA = [
     desc: "Offers long, scenic descents through rolling hills and quiet pastures, providing a more relaxed, authentic descent back to the valley floor.",
     runs: { green: 4, blue: 12, red: 10, black: 2 },
     difficulty: "Scenic & Easy-going",
-    peak: "TougnÃ¨te (2434m)"
+    peak: "Tougnète (2434m)"
   },
   {
     name: "Orelle",
@@ -122,7 +122,7 @@ const RESORTS_DATA = [
     elevation: "1350m",
     imgUrl: `${import.meta.env.BASE_URL}assets/.aistudio/orelle.jpg`,
     fallbackUrl: "https://images.unsplash.com/photo-1548777123-e216912df7d8?auto=format&fit=crop&q=80&w=800",
-    desc: "Provides access to the highest point in the 3 VallÃ©es. Characterized by stark, high-alpine scenery and long, sweeping red runs that feel worlds away from the crowds.",
+    desc: "Provides access to the highest point in the 3 Vallées. Characterized by stark, high-alpine scenery and long, sweeping red runs that feel worlds away from the crowds.",
     runs: { green: 2, blue: 11, red: 7, black: 4 },
     difficulty: "Wild & Vast",
     peak: "Bouchet Glacier (3230m)"
@@ -133,12 +133,12 @@ const RESORTS_DATA = [
 const SECTOR_INFO = [
   {
     id: "meribel",
-    name: "MÃ©ribel Central",
+    name: "Méribel Central",
     altitude: "1,450m - 2,730m",
     difficulty: "Balanced Intermediate Trails",
     peak: "Dent de Burgin",
     desc: "Our immediate home base! Features wide, high-speed intermediate gondolas and runs direct to the chalet.",
-    transit: "From Chalet Kalliste: Ski down the intermediate green or blue trails directly to the town lift base. Take Saulire Express 1 & 2 directly to transit to Courchevel, or TougnÃ¨te 1 & 2 to descend into Les Menuires or Val Thorens."
+    transit: "From Chalet Kalliste: Ski down the intermediate green or blue trails directly to the town lift base. Take Saulire Express 1 & 2 directly to transit to Courchevel, or Tougnète 1 & 2 to descend into Les Menuires or Val Thorens."
   },
   {
     id: "valthorens",
@@ -147,7 +147,7 @@ const SECTOR_INFO = [
     difficulty: "Glacier Powder / Steep Extreme",
     peak: "Cime de Caron",
     desc: "Europe's highest alpine resort bowl. High altitude glacier skiing ensures crystal-clear packed snow powder year-round.",
-    transit: "Transition strategy: From MÃ©ribel base, board TougnÃ¨te 1 & 2, then ski down blue 'Gros Tougne' to Les Menuires. Board the Granges lift up, then take the Mont de la Chambre chairlift directly to cross over into the Val Thorens ski field."
+    transit: "Transition strategy: From Méribel base, board Tougnète 1 & 2, then ski down blue 'Gros Tougne' to Les Menuires. Board the Granges lift up, then take the Mont de la Chambre chairlift directly to cross over into the Val Thorens ski field."
   },
   {
     id: "courchevel",
@@ -156,7 +156,7 @@ const SECTOR_INFO = [
     difficulty: "Meticulous Grooming & Premium Views",
     peak: "La Saulire",
     desc: "Famous for its sweeping sunny couloirs, pristine tree runs, luxurious dining huts, and north-facing powder preservation.",
-    transit: "Transition strategy: Simply ride the Saulire Express 1 & 2 from MÃ©ribel center to the absolute peak crest at 2,738m. Glide down the majestic red 'Creux' or blue 'Pralong' directly into Courchevel 1850."
+    transit: "Transition strategy: Simply ride the Saulire Express 1 & 2 from Méribel center to the absolute peak crest at 2,738m. Glide down the majestic red 'Creux' or blue 'Pralong' directly into Courchevel 1850."
   },
   {
     id: "lesmenuires",
@@ -165,7 +165,7 @@ const SECTOR_INFO = [
     difficulty: "Cruising Speedways & Large Vertical",
     peak: "Mont de la Chambre",
     desc: "Known for consistent sunshine and high mileage cruising trails. Amazing long runs that challenge leg endurance.",
-    transit: "Transition strategy: Ski up TougnÃ¨te 1 & 2 from the center valley. Traverse over the peak edge, and dive directly into the wide, sweeping blue pistes of 'Gros Tougne' to reach the sunny west-facing lifts."
+    transit: "Transition strategy: Ski up Tougnète 1 & 2 from the center valley. Traverse over the peak edge, and dive directly into the wide, sweeping blue pistes of 'Gros Tougne' to reach the sunny west-facing lifts."
   },
   {
     id: "saintmartin",
@@ -174,7 +174,7 @@ const SECTOR_INFO = [
     difficulty: "Picturesque Old-World Village Trails",
     peak: "Biolley",
     desc: "Slightly quieter routes through historical, sun-drenched stone hamlets. Perfect for easy-going afternoons and tree runs.",
-    transit: "Transition strategy: Access Biolley ridge via TougnÃ¨te, then ski down the long, sweeping blue run 'JÃ©rusalem' â€” legendary for its soft undulating shape â€” directly into the ancient village parish center."
+    transit: "Transition strategy: Access Biolley ridge via Tougnète, then ski down the long, sweeping blue run 'Jérusalem' â€” legendary for its soft undulating shape â€” directly into the ancient village parish center."
   },
   {
     id: "latania",
@@ -183,7 +183,7 @@ const SECTOR_INFO = [
     difficulty: "Sheltered Tree Glades",
     peak: "Col de la Loze",
     desc: "A stunning forest-locked retreat. Beautifully sheltered pines protect skiers and preserve superb visibility during high wind events.",
-    transit: "Transition strategy: Make your way to the Col de la Loze (from MÃ©ribel or Courchevel side). Glide down the sweeping green 'Plan de l'Eau' or blue 'FolyÃ¨res' directly through dense alpine glades."
+    transit: "Transition strategy: Make your way to the Col de la Loze (from Méribel or Courchevel side). Glide down the sweeping green 'Plan de l'Eau' or blue 'Folyères' directly through dense alpine glades."
   }
 ];
 
@@ -288,7 +288,7 @@ export default function App() {
           {/* Logo */}
           <div className="font-display text-2xl md:text-3xl tracking-widest text-[#e9c349] flex items-center gap-2">
             <span className="w-1.5 h-6 bg-[#e9c349] inline-block rounded-full"></span>
-            LES 3 VALLÃ‰ES 2027
+            LES 3 VALLÉES 2027
           </div>
 
           {/* Desktop Nav */}
@@ -336,7 +336,7 @@ export default function App() {
                 activeTab === "pistemap" ? "text-[#e9c349]" : "text-[#c4c6cf] hover:text-[#e9c349]"
               }`}
             >
-              3 VallÃ©es Map
+              3 Vallées Map
               {activeTab === "pistemap" && (
                 <motion.span layoutId="under" className="absolute bottom-0 left-0 w-full h-[2px] bg-[#e9c349]" />
               )}
@@ -396,10 +396,10 @@ export default function App() {
           <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-8 mb-12 pb-10 border-b border-[#e9c349]/20">
             <div>
               <p className="font-display text-sm text-[#e9c349] uppercase tracking-[0.25em] mb-4">
-                Les 3 VallÃ©es 2027 Group Expedition
+                Les 3 Vallées 2027 Group Expedition
               </p>
               <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase">
-                LES 3 VALLÃ‰ES
+                LES 3 VALLÉES
               </h1>
             </div>
 
@@ -489,7 +489,7 @@ export default function App() {
                 CHALET KALLISTE
               </h2>
               <p className="text-lg leading-relaxed text-[#c4c6cf] mb-8 font-sans">
-                Our base for the week is <strong className="text-white font-normal">Chalet Kalliste</strong> &mdash; a spacious, luxury-certified alpine chalet located in the magnificent MÃ©ribel valley. Tucked elegantly in Les Allues with an effortless 6-minute walk to the Olympe 3 gondola, it comfortably accommodates our 12 adventurers with a stunning wood fireplace, high-spec professional kitchen, and local outdoor therapeutic hot tub. 
+                Our base for the week is <strong className="text-white font-normal">Chalet Kalliste</strong> &mdash; a spacious, luxury-certified alpine chalet located in the magnificent Méribel valley. Tucked elegantly in Les Allues with an effortless 6-minute walk to the Olympe 3 gondola, it comfortably accommodates our 12 adventurers with a stunning wood fireplace, high-spec professional kitchen, and local outdoor therapeutic hot tub. 
               </p>
 
               {/* Core Amenities */}
@@ -667,7 +667,7 @@ export default function App() {
             
             <div className="max-w-md bg-slate-50 p-6 border-l-4 border-amber-500 rounded-r-lg shadow-md border-y border-r border-slate-200">
               <p className="text-sm font-sans text-slate-700 italic">
-                &ldquo;Les 3 VallÃ©es &mdash; Know Your Playground. From our chalet in Les Allues, you're positioned at the geographical heart of the whole system. Every valley is within reach on a single day &mdash; ski to Courchevel for lunch, push through to Val Thorens in the afternoon, and be back for hot tub in MÃ©ribel.&rdquo;
+                &ldquo;Les 3 Vallées &mdash; Know Your Playground. From our chalet in Les Allues, you're positioned at the geographical heart of the whole system. Every valley is within reach on a single day &mdash; ski to Courchevel for lunch, push through to Val Thorens in the afternoon, and be back for hot tub in Méribel.&rdquo;
               </p>
             </div>
           </div>
@@ -825,7 +825,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 3 VallÃ©es Interactive Piste Map Section */}
+      {/* 3 Vallées Interactive Piste Map Section */}
       <section id="piste-map" className="py-24 px-6 md:px-16 bg-[#0c0e14] border-t border-[#e9c349]/10 relative">
         <div className="absolute top-8 right-6 md:right-16 font-display text-xs text-[#e9c349]/40 tracking-[0.3em] uppercase">
           Core Sector Network
@@ -848,7 +848,7 @@ export default function App() {
             
             <div className="max-w-md bg-[#141822]/85 p-6 border-l-4 border-[#e9c349] rounded-r-lg shadow-md">
               <p className="text-xs font-sans text-gray-400">
-                ðŸ’¡ <strong className="text-white">Central Positioning Tip:</strong> Because Chalet Kalliste is situated centrally in Les Allues (MÃ©ribel Valley), you are perfectly centered to reach all 3 valleys in a single morning. Select a sector below for tactical crossover guides.
+                💡 <strong className="text-white">Central Positioning Tip:</strong> Because Chalet Kalliste is situated centrally in Les Allues (Méribel Valley), you are perfectly centered to reach all 3 valleys in a single morning. Select a sector below for tactical crossover guides.
               </p>
             </div>
           </div>
@@ -858,7 +858,7 @@ export default function App() {
             <div className="lg:col-span-7 border border-[#e9c349]/15 p-2 bg-[#141822]/60 shadow-2xl relative group rounded-xl backdrop-blur-sm">
               <div className="relative aspect-[16/10] w-full overflow-hidden border border-[#e9c349]/10 bg-black rounded-lg">
                 <img 
-                   alt="Les 3 VallÃ©es Piste Map" 
+                   alt="Les 3 Vallées Piste Map" 
                   className="w-full h-full object-cover grayscale-[10%] group-hover:scale-[1.01] transition-transform duration-700 cursor-zoom-in" 
                   src={`${import.meta.env.BASE_URL}assets/.aistudio/skimap.jpg`}
                   onClick={() => setMapZoomed(true)}
@@ -881,7 +881,7 @@ export default function App() {
 
                 {/* Left sector count tag */}
                 <div className="absolute top-4 left-4 bg-black/80 border border-[#e9c349]/20 px-3 py-1 text-[10px] font-display tracking-wider text-white uppercase backdrop-blur-sm rounded-lg">
-                  Official 3 VallÃ©es Network
+                  Official 3 Vallées Network
                 </div>
               </div>
             </div>
@@ -935,7 +935,7 @@ export default function App() {
                       </h3>
                       <div className="flex gap-4 text-[10px] text-gray-400 font-mono mt-1">
                         <span>Elevation: {SECTOR_INFO.find(s => s.id === activeSectorId)?.altitude}</span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span>Peak: {SECTOR_INFO.find(s => s.id === activeSectorId)?.peak}</span>
                       </div>
                     </div>
@@ -975,7 +975,7 @@ export default function App() {
             <div className="flex justify-between items-center max-w-7xl mx-auto w-full border-b border-gray-800 pb-4">
               <div>
                 <h3 className="font-display text-lg text-white uppercase tracking-widest">
-                  Les 3 VallÃ©es Ski Map
+                  Les 3 Vallées Ski Map
                 </h3>
                 <span className="text-[10px] text-emerald-400 font-mono tracking-wider">
                   HIGH-DEFINITION RESOLUTION ACTIVE ({SECTOR_INFO.length} SKI SECTORS DETAILED)
@@ -1004,13 +1004,13 @@ export default function App() {
             {/* Footer zoom guides */}
             <div className="max-w-4xl mx-auto w-full text-center border-t border-gray-800 pt-4 flex flex-col gap-2">
               <p className="text-[10px] text-gray-400 uppercase tracking-widest">
-                ðŸ’¡ Navigation Tip: On desktops, use your trackpad or scrollbars to pan left, right, and zoom closely into separate chairlift paths.
+                💡 Navigation Tip: On desktops, use your trackpad or scrollbars to pan left, right, and zoom closely into separate chairlift paths.
               </p>
               <div className="flex justify-center gap-6 text-[10px] font-mono text-[#e9c349]/70">
-                <span>Central Valley: MÃ©ribel (1,450m)</span>
-                <span>â€¢</span>
+                <span>Central Valley: Méribel (1,450m)</span>
+                <span>•</span>
                 <span>Left Sector: Courchevel (1,850m)</span>
-                <span>â€¢</span>
+                <span>•</span>
                 <span>Right Sector: Les Menuires & Val Thorens (2,300m)</span>
               </div>
             </div>
@@ -1051,7 +1051,7 @@ export default function App() {
             {[
               { id: "morning", time: "08:30", label: "Alpine Launch", desc: "Slopes Connection" },
               { id: "midday", time: "12:30", label: "Valley Town Safaris", desc: "Easy Strolls & Sneaker Swaps" },
-              { id: "afternoon", time: "16:00", label: "AprÃ¨s & High Life", desc: "Music & Beats" },
+              { id: "afternoon", time: "16:00", label: "Après & High Life", desc: "Music & Beats" },
               { id: "evening", time: "19:30", label: "Savoyard Recovery", desc: "Fondue & Fireside" }
             ].map((tab) => (
               <button
@@ -1104,7 +1104,7 @@ export default function App() {
                         DIRECT CONNECTIVITY TO WORLD'S BIGGEST PLAYGROUND
                       </h3>
                       <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                        Wake up to fresh coffee in Les Allues, slip on your ski gear directly in our heated boots locker setup, and take a quick 12-minute ride straight to the heart of MÃ©ribel via the high-capacity Olympe gondola. There's no traffic, no parking stress, and no long queuing linesâ€”just direct access to fresh, crisp corduroy pistes.
+                        Wake up to fresh coffee in Les Allues, slip on your ski gear directly in our heated boots locker setup, and take a quick 12-minute ride straight to the heart of Méribel via the high-capacity Olympe gondola. There's no traffic, no parking stress, and no long queuing linesâ€”just direct access to fresh, crisp corduroy pistes.
                       </p>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1113,7 +1113,7 @@ export default function App() {
                             LES ALLUES GONDOLA
                           </h4>
                           <p className="text-slate-500 text-xs">
-                            A mere 12-minute quiet ride with heated cabins connecting Les Allues directly to MÃ©ribel Centerâ€™s main ski lifts.
+                            A mere 12-minute quiet ride with heated cabins connecting Les Allues directly to Méribel Centerâ€™s main ski lifts.
                           </p>
                         </div>
                         <div className="bg-white p-4 rounded-xl border border-slate-200/60 shadow-xs">
@@ -1267,7 +1267,7 @@ export default function App() {
                         <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-3 font-sans">
                           <div className="flex justify-between border-b border-slate-100 pb-2">
                             <span className="text-xs text-slate-500">Signature dish:</span>
-                            <span className="text-xs text-slate-800 font-bold">CÃ´te de BÅ“uf (Wood-Fire open hearth)</span>
+                            <span className="text-xs text-slate-800 font-bold">Côte de BÅ“uf (Wood-Fire open hearth)</span>
                           </div>
                           <div className="flex justify-between border-b border-slate-100 pb-2">
                             <span className="text-xs text-slate-500">Vibe:</span>
@@ -1310,7 +1310,7 @@ export default function App() {
                           },
                           {
                             town: "Courchevel 1850",
-                            vibe: "Luxury Alpine Boutiques & High-End CafÃ©s",
+                            vibe: "Luxury Alpine Boutiques & High-End Cafés",
                             desc: "The world-famous luxury row with upscale boutique shops, beautiful outdoor coffee stalls, and pristine people watching. Direct wide ski-in slopes that lead right to the village center.",
                             tip: "Ski straight to 'La Croisette', deposit skis in the premium snow terrace racks, swap boots inside the ski center, and stroll."
                           },
@@ -1357,7 +1357,7 @@ export default function App() {
                   <div className="lg:col-span-6 bg-slate-950 text-white p-2 flex flex-col justify-end relative h-[450px] min-h-[400px] overflow-hidden group rounded-2xl shadow-xl border border-slate-800">
                     <img
                       src={`${import.meta.env.BASE_URL}assets/.aistudio/lafolie.jpg`}
-                      alt="MÃ©ribel vibrant aprÃ¨s-ski scene"
+                      alt="Méribel vibrant après-ski scene"
                       referrerPolicy="no-referrer"
                       className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] object-cover rounded-xl opacity-60 group-hover:opacity-75 transition-all duration-700"
                     />
@@ -1372,7 +1372,7 @@ export default function App() {
                         LA FOLIE DOUCE CABARET
                       </h3>
                       <p className="text-xs text-gray-300 border-l-2 border-amber-400 pl-4 leading-relaxed font-sans">
-                        Settle on open air wooden terraces under beautiful bluebird alpine skies. As the custom clock strikes 3 PM, watch the scene explode with high-energy champagne sprays, exceptional live saxophonists, aerial acrobats, and dancers on tables. This is world-renowned aprÃ¨s luxury at its peak.
+                        Settle on open air wooden terraces under beautiful bluebird alpine skies. As the custom clock strikes 3 PM, watch the scene explode with high-energy champagne sprays, exceptional live saxophonists, aerial acrobats, and dancers on tables. This is world-renowned après luxury at its peak.
                       </p>
                     </div>
                   </div>
@@ -1382,13 +1382,13 @@ export default function App() {
                     <div>
                       <div className="flex items-center gap-2 text-amber-600 mb-4 font-semibold">
                         <Music size={16} />
-                        <span className="font-mono text-xs uppercase tracking-wider">Interactive AprÃ¨s Vibe selector</span>
+                        <span className="font-mono text-xs uppercase tracking-wider">Interactive Après Vibe selector</span>
                       </div>
                       <h4 className="font-display text-2xl text-slate-800 uppercase tracking-widest mb-1.5 font-bold">
                         CHOOSE YOUR AFTERNOON MODE
                       </h4>
                       <p className="text-xs text-slate-500 mb-6">
-                        Alpine aprÃ¨s ranges from electric high-energy outdoor dances to relaxing luxury lounge hearth fires. Click a vibe category to see our recommended group plan:
+                        Alpine après ranges from electric high-energy outdoor dances to relaxing luxury lounge hearth fires. Click a vibe category to see our recommended group plan:
                       </p>
 
                       <div className="space-y-4 font-sans">
@@ -1398,7 +1398,7 @@ export default function App() {
                             place: "La Folie Douce (Slope ridge)",
                             desc: "High energy, live musicians on tables, snow champagne showers, full performance cabaret. Perfect for sunny ski days with big group laughs.",
                             emoji: "ðŸŽ·",
-                            drink: "Chilled French RosÃ© or Champagne"
+                            drink: "Chilled French Rosé or Champagne"
                           },
                           {
                             mode: "Cozy Fireside Piano Lounge (17:00 - 19:00)",
@@ -1438,7 +1438,7 @@ export default function App() {
                     <div className="mt-8 p-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl flex items-center gap-2">
                       <Sparkles size={14} className="shrink-0" />
                       <p className="text-[10px] font-sans">
-                        <strong>Group Coordination:</strong> Direct ski-runs lead straight from sloped aprÃ¨s hubs down into Les Allues villages for total safety. No driving keys needed!
+                        <strong>Group Coordination:</strong> Direct ski-runs lead straight from sloped après hubs down into Les Allues villages for total safety. No driving keys needed!
                       </p>
                     </div>
                   </div>
@@ -1513,7 +1513,7 @@ export default function App() {
                           </div>
                           <div className="bg-slate-800 p-3 rounded-xl border-2 border-amber-500 text-center shadow-md">
                             <span className="block text-lg">ðŸ§€</span>
-                            <span className="block text-[10px] font-bold text-amber-400 uppercase tracking-wider">ComtÃ© Aged</span>
+                            <span className="block text-[10px] font-bold text-amber-400 uppercase tracking-wider">Comté Aged</span>
                             <span className="text-[8px] text-gray-400 block mt-0.5">Nutty complexity</span>
                           </div>
                           <div className="bg-slate-800 p-3 rounded-xl border-2 border-amber-500/40 text-center opacity-90 select-none">
@@ -1531,7 +1531,7 @@ export default function App() {
                           </div>
                           <div className="flex justify-between items-center text-xs pb-1.5 border-b border-slate-700">
                             <span className="text-gray-400">ðŸ¥ƒ Post-digestif traditional:</span>
-                            <span className="text-amber-400 font-bold font-mono">Traditional GenÃ©pi liqueur</span>
+                            <span className="text-amber-400 font-bold font-mono">Traditional Genépi liqueur</span>
                           </div>
                           <div className="flex justify-between items-center text-xs">
                             <span className="text-gray-400">ðŸ’¡ Traditional Savoyard Tip:</span>
@@ -1662,7 +1662,7 @@ export default function App() {
                   {/* Row 02: Piste Ski Pass */}
                   <div className="flex justify-between items-start border-b border-slate-800/60 pb-4">
                     <div>
-                      <div className="text-white font-semibold text-base border-none">6-Day Three VallÃ©es Lift Pass (Estimated Rate)</div>
+                      <div className="text-white font-semibold text-base border-none">6-Day Three Vallées Lift Pass (Estimated Rate)</div>
                       <div className="text-sm text-slate-300 font-sans mt-1 leading-relaxed">
                         Full, unrestricted lift access across all 600km of local slopes, peaks, and transitions.
                       </div>
@@ -1825,7 +1825,7 @@ export default function App() {
                         <span className="font-semibold text-white">${chaletSurcharge}.05</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Three VallÃ©es Lift Pass (Estimated)</span>
+                        <span>Three Vallées Lift Pass (Estimated)</span>
                         <span className="font-semibold text-white">$440.00</span>
                       </div>
                       <div className="flex justify-between">
@@ -1905,7 +1905,7 @@ export default function App() {
                       Travel Pro-Tip: Epic Pass Holders
                     </span>
                     <p className="text-xs leading-relaxed font-medium text-[#0c0e14]/90 font-sans">
-                      The active, international **Epic Ski Pass** offers unrestricted slope privileges for the whole Les 3 VallÃ©es system. If you already hold a stateside resort Epic Pass, you do not need to buy any local ticket pass. (These rates are local resort estimates).
+                      The active, international **Epic Ski Pass** offers unrestricted slope privileges for the whole Les 3 Vallées system. If you already hold a stateside resort Epic Pass, you do not need to buy any local ticket pass. (These rates are local resort estimates).
                     </p>
                   </div>
                 </div>
@@ -1920,7 +1920,7 @@ export default function App() {
       <footer className="bg-[#0c0f10] border-t border-[#e9c349] py-12 px-6 md:px-16 text-xs text-gray-400 relative">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="font-display text-xl tracking-widest text-[#e9c349]">
-            LES 3 VALLÃ‰ES EXPEDITION
+            LES 3 VALLÉES EXPEDITION
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 font-display text-[10px] tracking-widest uppercase">
@@ -1931,7 +1931,7 @@ export default function App() {
           </div>
 
           <div className="font-normal text-slate-400">
-            &copy; 2027 LES 3 VALLÃ‰ES EXPEDITION. ALL RIGHTS RESERVED. SAVOIE DEPLOYMENT.
+            &copy; 2027 LES 3 VALLÉES EXPEDITION. ALL RIGHTS RESERVED. SAVOIE DEPLOYMENT.
           </div>
         </div>
       </footer>
