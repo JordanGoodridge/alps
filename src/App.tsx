@@ -523,7 +523,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-8 mb-12 pb-10 border-b border-[#e9c349]/20">
             <div>
               <p className="font-display text-sm text-[#e9c349] uppercase tracking-[0.25em] mb-4">
-                Les 3 Vallées 2027 Group Expedition
+                Jordan's Les 3 Vallées 2027 Expedition
               </p>
               <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase">
                 LES 3 VALLÉES
@@ -2047,7 +2047,7 @@ export default function App() {
       <footer className="bg-[#0c0f10] border-t border-[#e9c349] py-12 px-6 md:px-16 text-xs text-gray-400 relative">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="font-display text-xl tracking-widest text-[#e9c349]">
-            LES 3 VALLÉES EXPEDITION
+            JORDAN'S 3 VALLÉES EXPEDITION
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 font-display text-[10px] tracking-widest uppercase">
@@ -2058,7 +2058,7 @@ export default function App() {
           </div>
 
           <div className="font-normal text-slate-400">
-            &copy; 2027 LES 3 VALLÉES EXPEDITION. ALL RIGHTS RESERVED. SAVOIE DEPLOYMENT.
+            &copy; 2027 JORDAN'S 3 VALLÉES EXPEDITION. ALL RIGHTS RESERVED. SAVOIE DEPLOYMENT.
           </div>
         </div>
       </footer>
