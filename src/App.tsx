@@ -495,7 +495,7 @@ export default function App() {
               key={heroIndex}
               src={HERO_IMAGES[heroIndex].url}
               alt={HERO_IMAGES[heroIndex].alt}
-              className="absolute inset-0 w-full h-full object-cover object-[center_75%] contrast-[1.2] brightness-[0.75] saturate-[1.3]"
+              className="absolute inset-0 w-full h-full object-cover object-[center_75%] contrast-[1.15] brightness-[0.85] saturate-[1.25]"
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -503,7 +503,7 @@ export default function App() {
               referrerPolicy="no-referrer"
             />
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e14] via-[#0c0e14]/50 to-transparent z-[1]"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e14]/90 via-[#0c0e14]/25 to-transparent z-[1]"></div>
 
           {/* Hero slide indicators */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[2] flex gap-2">
@@ -549,7 +549,7 @@ export default function App() {
             </div>
 
             {/* Live Countdown Clock - Desktop Only */}
-            <div className="hidden md:block p-6 border border-[#e9c349]/20 bg-[#141822]/95 backdrop-blur-md w-full max-w-md rounded-xl shadow-xl">
+            <div className="hidden md:block p-6 border border-[#e9c349]/20 bg-[#141822]/40 backdrop-blur-md w-full max-w-md rounded-xl shadow-xl">
               <div className="text-center font-display text-xs text-[#e9c349] tracking-widest uppercase mb-4 flex items-center gap-2 justify-center">
                 <Timer size={14} />
                 Expedition Departure Countdown
@@ -588,25 +588,25 @@ export default function App() {
 
           {/* Quick Metrics Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pt-4 md:pt-6 font-sans">
-            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/20 backdrop-blur-xs hover:bg-[#141822]/50 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal inline-flex items-baseline">
                 600<span className="text-lg uppercase text-white tracking-widest font-sans font-light ml-1 font-sans">km</span>
               </span>
               <span className="block font-display text-xs text-[#c4c6cf] tracking-widest uppercase mt-2">Runs Available</span>
             </div>
-            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/20 backdrop-blur-xs hover:bg-[#141822]/50 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal">
                 156
               </span>
               <span className="block font-display text-xs text-[#c4c6cf] tracking-widest uppercase mt-2">Active Lifts</span>
             </div>
-            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/20 backdrop-blur-xs hover:bg-[#141822]/50 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal">
                 7
               </span>
               <span className="block font-display text-xs text-[#c4c6cf] tracking-widest uppercase mt-2">Interconnected Resorts</span>
             </div>
-            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/20 backdrop-blur-xs hover:bg-[#141822]/50 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal inline-flex items-baseline">
                 3230<span className="text-lg uppercase text-white tracking-widest font-sans font-light ml-1 font-sans">m</span>
               </span>
