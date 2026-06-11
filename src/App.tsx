@@ -528,6 +528,18 @@ export default function App() {
               >
                 Jordan's Les 3 Vallées 2027 Expedition
               </p>
+              
+              {/* Mobile Compact Countdown Pill */}
+              <div 
+                className="inline-flex md:hidden items-center gap-2 px-3.5 py-1.5 bg-[#141822]/90 border border-[#e9c349]/20 backdrop-blur-md rounded-full text-xs text-[#e9c349] font-mono mb-5 shadow-lg select-none"
+              >
+                <Timer size={12} className="animate-pulse shrink-0 text-[#e9c349]" />
+                <span className="tracking-widest uppercase text-[9px] text-gray-400 font-display">T-Minus</span>
+                <span className="font-bold tracking-wide">
+                  {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+                </span>
+              </div>
+
               <h1 
                 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white tracking-widest leading-none select-none uppercase"
                 style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.8)" }}
@@ -536,8 +548,8 @@ export default function App() {
               </h1>
             </div>
 
-            {/* Live Countdown Clock */}
-            <div className="p-6 border border-[#e9c349]/20 bg-[#141822]/95 backdrop-blur-md w-full max-w-md rounded-xl shadow-xl">
+            {/* Live Countdown Clock - Desktop Only */}
+            <div className="hidden md:block p-6 border border-[#e9c349]/20 bg-[#141822]/95 backdrop-blur-md w-full max-w-md rounded-xl shadow-xl">
               <div className="text-center font-display text-xs text-[#e9c349] tracking-widest uppercase mb-4 flex items-center gap-2 justify-center">
                 <Timer size={14} />
                 Expedition Departure Countdown
@@ -575,26 +587,26 @@ export default function App() {
           </div>
 
           {/* Quick Metrics Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 font-sans">
-            <div className="p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pt-4 md:pt-6 font-sans">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal inline-flex items-baseline">
                 600<span className="text-lg uppercase text-white tracking-widest font-sans font-light ml-1 font-sans">km</span>
               </span>
               <span className="block font-display text-xs text-[#c4c6cf] tracking-widest uppercase mt-2">Runs Available</span>
             </div>
-            <div className="p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal">
                 156
               </span>
               <span className="block font-display text-xs text-[#c4c6cf] tracking-widest uppercase mt-2">Active Lifts</span>
             </div>
-            <div className="p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal">
                 7
               </span>
               <span className="block font-display text-xs text-[#c4c6cf] tracking-widest uppercase mt-2">Interconnected Resorts</span>
             </div>
-            <div className="p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
+            <div className="p-3 sm:p-4 border-l-4 border-[#e9c349] bg-[#141822]/45 hover:bg-[#141822]/65 rounded-r-lg transition-all shadow-md">
               <span className="font-display text-4xl text-[#e9c349] tracking-normal inline-flex items-baseline">
                 3230<span className="text-lg uppercase text-white tracking-widest font-sans font-light ml-1 font-sans">m</span>
               </span>
