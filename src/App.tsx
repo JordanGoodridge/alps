@@ -816,10 +816,22 @@ export default function App() {
                             <span>Location:</span>
                             <span className="text-white">Méribel Valley</span>
                           </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Share for 13 Guests:</span>
+                            <span className="text-white font-mono">$1,154.85 / head</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Share for 14 Guests:</span>
+                            <span className="text-white font-mono">$1,072.36 / head</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Share for 15 Guests:</span>
+                            <span className="text-white font-mono">$1,000.87 / head</span>
+                          </li>
                           <li className="flex justify-between pt-1 font-sans">
-                            <span className="font-semibold text-white">Chalet Share Per Head:</span>
+                            <span className="font-semibold text-white">Current Active Share ({guestsCount} Guests):</span>
                             <span className="text-[#e9c349] font-display text-base font-semibold">
-                              $1,001 - $1,155
+                              ${chaletSurcharge.toFixed(2)}
                             </span>
                           </li>
                         </ul>
