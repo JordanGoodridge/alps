@@ -256,10 +256,9 @@ export default function App() {
   const [activeSectorId, setActiveSectorId] = useState<string>("meribel");
 
   // Dynamic Budget Calculator States
-  const guestsCount = 12; // Flat 12 guests
+  const [guestsCount, setGuestsCount] = useState(12);
   const nightsCount = 7;  // Flat 7 nights
   const [transitFee, setTransitFee] = useState(900); // Default JFK ticket cost estimate
-  const [shuttleOption, setShuttleOption] = useState(85); // Default to Private Group Transfer Share ($85/person)
   const [rentalTier, setRentalTier] = useState<"beginner" | "expert">("expert");
   const [bootRentalOption, setBootRentalOption] = useState<"skis_and_boots" | "skis_only">("skis_and_boots");
 
@@ -268,7 +267,22 @@ export default function App() {
     expert: { skis_and_boots: 260, skis_only: 190 },
   };
   const rentalPack = RENTAL_TIERS[rentalTier][bootRentalOption];
-  const [chaletSurcharge, setChaletSurcharge] = useState(1029); // Fixed USD chalet cost share ($12,346.59 / 12)
+
+  // Dynamic chalet pricing math based on active tab and guest count
+  const chaletPrice = activeChalet === "kalliste" ? 12346.59 : 15012.99;
+  const chaletSurcharge = chaletPrice / guestsCount;
+  const shuttleOption = 1020 / guestsCount;
+
+  // Sync guestCount when chalet switches
+  useEffect(() => {
+    if (activeChalet === "kalliste") {
+      setGuestsCount(12);
+    } else {
+      if (guestsCount < 13 || guestsCount > 15) {
+        setGuestsCount(15); // Default to 15 when pivoting to Les Solans
+      }
+    }
+  }, [activeChalet]);
 
   // Timer: Count down to Jan 23, 2027 (takeoff date)
   useEffect(() => {
@@ -722,7 +736,7 @@ export default function App() {
                           <li className="flex justify-between pt-1 font-sans">
                             <span className="font-semibold text-white">Chalet Share Per Head:</span>
                             <span className="text-[#e9c349] font-display text-base font-semibold">
-                              ${chaletSurcharge}
+                              ${Math.round(chaletSurcharge)} <span className="text-xs text-gray-400">(${chaletSurcharge.toFixed(2)} exact)</span>
                             </span>
                           </li>
                         </ul>
@@ -732,10 +746,10 @@ export default function App() {
                       <div className="flex flex-col gap-1 mb-6 font-sans">
                         <div className="flex items-baseline gap-2">
                           <span className="font-display text-5xl text-[#e9c349]">
-                            ${chaletSurcharge}
+                            ${Math.round(chaletSurcharge)}
                           </span>
                           <span className="font-display text-xs text-[#c4c6cf] tracking-widest uppercase">
-                            / person ($147 / night)
+                            / person (${Math.round(chaletSurcharge / 7)} / night)
                           </span>
                         </div>
                         <span className="text-xs text-[#c4c6cf]">
@@ -795,30 +809,49 @@ export default function App() {
                             <span className="text-[#e9c349] font-bold">Pivot Option (Up to 15 Guests)</span>
                           </li>
                           <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Total Chalet Rental Price (USD):</span>
+                            <span className="text-white">$15,012.99</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
                             <span>Location:</span>
                             <span className="text-white">Méribel Valley</span>
                           </li>
                           <li className="flex justify-between pt-1 font-sans">
-                            <span className="font-semibold text-white">Chalet Share status:</span>
-                            <span className="text-white italic">
-                              Recalculated upon group size increase
+                            <span className="font-semibold text-white">Chalet Share Per Head:</span>
+                            <span className="text-[#e9c349] font-display text-base font-semibold">
+                              $1,001 - $1,155
                             </span>
                           </li>
                         </ul>
                       </div>
 
                       {/* Price Details */}
-                      <div className="flex flex-col gap-1 mb-6 font-sans">
-                        <div className="flex items-baseline gap-2">
-                          <span className="font-display text-3xl text-[#e9c349]">
-                            12-15 Guests
-                          </span>
-                          <span className="font-display text-xs text-[#c4c6cf] tracking-widest uppercase">
-                            Expanded Capacity
-                          </span>
+                      <div className="flex flex-col gap-3 mb-6 font-sans">
+                        <div className="text-xs uppercase tracking-wider text-[#c4c6cf] font-display">
+                          Estimated Share Per Head (Total: $15,012.99)
                         </div>
-                        <span className="text-xs text-[#c4c6cf]">
-                          Pivot triggered automatically at 13+ attendees. Rates vary depending on final headcount.
+                        <div className="grid grid-cols-3 gap-2 text-center">
+                          <div className="bg-[#141822] border border-[#e9c349]/15 p-2 rounded-lg shadow-sm">
+                            <span className="block text-[9px] text-[#c4c6cf] uppercase tracking-widest font-semibold">13 Guests</span>
+                            <span className="block font-display text-base text-[#e9c349] font-bold mt-1">$1,155</span>
+                            <span className="text-[8px] text-gray-400 block">$1,154.85 exact</span>
+                            <span className="text-[8px] text-[#c4c6cf] block mt-0.5">$165 / night</span>
+                          </div>
+                          <div className="bg-[#141822] border border-[#e9c349]/15 p-2 rounded-lg shadow-sm">
+                            <span className="block text-[9px] text-[#c4c6cf] uppercase tracking-widest font-semibold">14 Guests</span>
+                            <span className="block font-display text-base text-[#e9c349] font-bold mt-1">$1,072</span>
+                            <span className="text-[8px] text-gray-400 block">$1,072.36 exact</span>
+                            <span className="text-[8px] text-[#c4c6cf] block mt-0.5">$153 / night</span>
+                          </div>
+                          <div className="bg-[#141822] border border-[#e9c349]/15 p-2 rounded-lg shadow-sm">
+                            <span className="block text-[9px] text-[#c4c6cf] uppercase tracking-widest font-semibold">15 Guests</span>
+                            <span className="block font-display text-base text-[#e9c349] font-bold mt-1">$1,001</span>
+                            <span className="text-[8px] text-gray-400 block">$1,000.87 exact</span>
+                            <span className="text-[8px] text-[#c4c6cf] block mt-0.5">$143 / night</span>
+                          </div>
+                        </div>
+                        <span className="text-[11px] text-[#c4c6cf] mt-1 leading-normal block">
+                          Pivot triggered automatically at 13+ attendees. Rates vary depending on final headcount. Select your headcount in the logistics calculator below to update the full travel ledger estimate!
                         </span>
                       </div>
 
@@ -1917,16 +1950,48 @@ export default function App() {
                 <div className="space-y-6">
                   
                   {/* Row 01: Chalet accommodation */}
-                  <div className="flex justify-between items-start border-b border-slate-800/60 pb-4">
-                    <div>
-                      <div className="text-white font-semibold text-base">Chalet Accommodation Share (Estimated)</div>
-                      <div className="text-sm text-slate-300 font-sans mt-1 leading-relaxed">
-                        7 nights at Chalet Kalliste. Individual flat 1/12th split of the private luxury chalet.
+                  <div className="flex flex-col border-b border-slate-800/60 pb-5">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="text-white font-semibold text-base">
+                          Chalet Accommodation Share ({activeChalet === "kalliste" ? "Kalliste" : "Les Solans"})
+                        </div>
+                        <div className="text-sm text-slate-300 font-sans mt-1 leading-relaxed">
+                          {activeChalet === "kalliste" 
+                            ? "7 nights at Chalet Kalliste. Individual flat 1/12th split of the private luxury chalet."
+                            : `7 nights at Chalet Les Solans. Individual split of $15,012.99 for ${guestsCount} guests.`
+                          }
+                        </div>
+                      </div>
+                      <div className="text-right font-sans font-bold text-base text-white shrink-0 pl-4 mt-0.5">
+                        ${chaletSurcharge.toFixed(2)}
                       </div>
                     </div>
-                    <div className="text-right font-sans font-bold text-base text-white shrink-0 pl-4 mt-0.5">
-                      ${chaletSurcharge}.05
-                    </div>
+                    
+                    {/* Headcount selector for Chalet Les Solans */}
+                    {activeChalet === "solans" && (
+                      <div className="mt-4 flex flex-col gap-2 font-sans">
+                        <span className="text-xs uppercase font-display text-[#e9c349] tracking-wider">
+                          Select Group Headcount for Les Solans:
+                        </span>
+                        <div className="flex gap-2 bg-[#0c0e14] p-1 rounded-xl border border-[#e9c349]/15 max-w-xs">
+                          {[13, 14, 15].map((count) => (
+                            <button
+                              key={count}
+                              type="button"
+                              onClick={() => setGuestsCount(count)}
+                              className={`flex-1 py-1.5 px-3 text-center text-xs font-semibold tracking-wide transition-colors rounded-lg ${
+                                guestsCount === count
+                                  ? "bg-[#e9c349] text-[#0c0e14] font-bold shadow-md"
+                                  : "text-slate-300 hover:text-white"
+                              }`}
+                            >
+                              {count} Guests
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Row 02: Piste Ski Pass */}
@@ -2025,18 +2090,18 @@ export default function App() {
                       <div>
                         <div className="text-white font-semibold text-base">Airport Private Shuttle Share (Estimated)</div>
                         <div className="text-sm text-slate-300 font-sans mt-1 leading-relaxed">
-                          Standard luxury sprinter minibus charge ($1,020 roundtrip split flat by 12 skiers).
+                          Standard luxury sprinter minibus charge ($1,020 roundtrip split flat by {guestsCount} skiers).
                         </div>
                       </div>
                       <div className="text-right font-sans font-bold text-base text-white shrink-0 pl-4 mt-0.5">
-                        ${shuttleOption}.00
+                        ${shuttleOption.toFixed(2)}
                       </div>
                     </div>
                     {/* Information Stripe */}
                     <div className="mt-3 p-3 bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 flex justify-between items-center rounded-xl">
                       <span className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block animate-pulse font-sans"></span>
-                        Minibus Booked for 12 Seats
+                        Minibus Booked for {guestsCount} Seats
                       </span>
                       <span className="text-slate-300 text-[11px]">Geneva Airport direct to Chalet</span>
                     </div>
@@ -2052,7 +2117,7 @@ export default function App() {
                         </div>
                       </div>
                       <div className="text-right font-sans font-bold text-base text-[#e9c349] shrink-0 pl-4 mt-0.5">
-                        ${transitFee}.00
+                        ${transitFee.toFixed(2)}
                       </div>
                     </div>
 
@@ -2068,7 +2133,7 @@ export default function App() {
                           onClick={() => setTransitFee(flight.price)}
                           className={`p-3 text-center border rounded-xl transition-all ${
                             transitFee === flight.price 
-                              ? "bg-[#e9c349] text-[#0c0e14] border-[#e9c349] font-bold" 
+                              ? "bg-[#e9c349] text-[#0c0e14] border-[#e9c349] font-bold shadow-md" 
                               : "border-[#e9c349]/10 hover:border-[#e9c349]/30 bg-[#0c0e14]/60 text-slate-300"
                           }`}
                         >
@@ -2092,7 +2157,7 @@ export default function App() {
                     <div className="space-y-3.5 text-sm text-slate-200">
                       <div className="flex justify-between">
                         <span>Chalet Accommodation Share (Estimated)</span>
-                        <span className="font-semibold text-white">${chaletSurcharge}.05</span>
+                        <span className="font-semibold text-white">${chaletSurcharge.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Three Vallées Lift Pass (Estimated)</span>
@@ -2100,25 +2165,25 @@ export default function App() {
                       </div>
                       <div className="flex justify-between">
                         <span>Ski Kit Rental (Estimated {rentalTier.toUpperCase()} Pack)</span>
-                        <span className="font-semibold text-white">${rentalPack}.00</span>
+                        <span className="font-semibold text-white">${rentalPack.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Minivan Transfer Share (Estimated)</span>
-                        <span className="font-semibold text-white">$85.00</span>
+                        <span className="font-semibold text-white">${shuttleOption.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between border-b border-slate-800 pb-3">
                         <span>Flight Transit Estimate</span>
-                        <span className="font-semibold text-white">${transitFee}.00</span>
+                        <span className="font-semibold text-white">${transitFee.toFixed(2)}</span>
                       </div>
                       
                       <div className="flex justify-between items-baseline text-white font-bold text-lg pt-2">
                         <span className="text-[#e9c349]">Estimated Personal Total:</span>
-                        <span className="text-[#e9c349] text-3xl">${totalIndividualEstimate}.05</span>
+                        <span className="text-[#e9c349] text-3xl">${totalIndividualEstimate.toFixed(2)}</span>
                       </div>
                       
                       <div className="flex justify-between text-xs text-slate-400 pt-1">
                         <span>Expedition Group Spend ({guestsCount} Person Share):</span>
-                        <span>${totalExpeditionGroupEstimate}.60 total est.</span>
+                        <span>${totalExpeditionGroupEstimate.toFixed(2)} total est.</span>
                       </div>
                     </div>
                   </div>
