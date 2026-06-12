@@ -284,16 +284,15 @@ export default function App() {
     }
   }, [activeChalet]);
 
-  // Timer: Count down to Jan 23, 2027 (takeoff date)
+  // Timer: Count down to Jan 23, 2027 or Jan 30, 2027 (takeoff date based on active chalet)
   useEffect(() => {
-    const targetDate = new Date("2027-01-23T09:00:00Z").getTime();
+    const targetDate = new Date(activeChalet === "kalliste" ? "2027-01-23T09:00:00Z" : "2027-01-30T09:00:00Z").getTime();
 
-    const interval = setInterval(() => {
+    const updateTimer = () => {
       const now = new Date().getTime();
       const difference = targetDate - now;
 
       if (difference <= 0) {
-        clearInterval(interval);
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
@@ -304,10 +303,13 @@ export default function App() {
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
       setTimeLeft({ days, hours, minutes, seconds });
-    }, 1000);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeChalet]);
 
 
 
@@ -601,7 +603,7 @@ export default function App() {
                 </div>
               </div>
               <p className="text-center text-[11px] text-[#c4c6cf] italic mt-3 font-sans">
-                Target: January 23, 2027 in Les Allues, Savoie
+                Target: {activeChalet === "kalliste" ? "January 23, 2027" : "January 30, 2027"} in Les Allues, Savoie
               </p>
             </div>
           </div>
@@ -774,7 +776,7 @@ export default function App() {
                       <p className="text-base leading-relaxed text-[#c4c6cf] mb-8 font-sans">
                         Chalet Les Solans is a spacious and elegant luxury chalet in Méribel, ideal for stays with family or friends. Bathed in light, it offers large, warm living spaces, unobstructed views of the mountains and a wellness area with spa and sauna to relax after skiing. An authentic and refined place, designed to share unforgettable moments in the heart of the Alps.
                         <br /><br />
-                        <strong className="text-[#e9c349]">Group Notice:</strong> If our guest count exceeds 12, we will pivot our entire reservation to this chalet, which comfortably accommodates up to 15 guests.
+                        <strong className="text-[#e9c349]">Group Notice & Date Shift:</strong> If our guest count exceeds 12, we will pivot our entire reservation to this chalet (accommodates up to 15 guests) and **shift our stay dates to one week later: January 30 - February 6, 2027**.
                       </p>
 
                       {/* Core Amenities */}
@@ -802,7 +804,7 @@ export default function App() {
                         <ul className="font-sans text-sm text-[#c4c6cf] space-y-2">
                           <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
                             <span>Dates Scheduled:</span>
-                            <span className="text-white">Jan 23, 2027 - Jan 30, 2027</span>
+                            <span className="text-[#e9c349] font-bold">Jan 30, 2027 - Feb 6, 2027 (Shifted)</span>
                           </li>
                           <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
                             <span>Capacity status:</span>
@@ -2219,7 +2221,7 @@ export default function App() {
                       Arrival Hub: Geneva (GVA)
                     </span>
                     <p className="text-slate-300 text-sm leading-relaxed font-sans">
-                      Geneva Airport (GVA) is our primary direct flight target. A reserved private sprinter minibus coordinates overland travel from GVA straight to Chalet Kalliste in Les Allues with a scenic 2-hour alpine trip.
+                      Geneva Airport (GVA) is our primary direct flight target. A reserved private sprinter minibus coordinates overland travel from GVA straight to {activeChalet === "kalliste" ? "Chalet Kalliste" : "Chalet Les Solans"} in Méribel/Les Allues with a scenic 2-hour alpine trip.
                     </p>
                   </div>
                   
@@ -2228,7 +2230,7 @@ export default function App() {
                       East Coast Transit (SWISS)
                     </span>
                     <p className="text-slate-300 text-sm leading-relaxed font-sans">
-                      We recommend Swiss Air's overnight non-stop routes departing from JFK to Geneva. Aim for a flight land time on the morning of January 23 to coordinate with the group transfer bus.
+                      We recommend Swiss Air's overnight non-stop routes departing from JFK to Geneva. Aim for a flight land time on the morning of {activeChalet === "kalliste" ? "January 23" : "January 30"} to coordinate with the group transfer bus.
                     </p>
                   </div>
 
