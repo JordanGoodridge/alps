@@ -39,7 +39,8 @@ const HERO_IMAGES = [
 ];
 
 // Chalet Carousel Hotlinked Images
-const CHALET_SLIDES = [
+// Chalet Carousel Hotlinked Images - Chalet 1 (Kalliste)
+const CHALET_KALLISTE_SLIDES = [
   {
     url: `${import.meta.env.BASE_URL}assets/.aistudio/exterior.jpg`,
     title: "Chalet Kalliste - Majestic Exterior",
@@ -64,6 +65,35 @@ const CHALET_SLIDES = [
     url: `${import.meta.env.BASE_URL}assets/.aistudio/kitchen.png`,
     title: "Epicurean Chef's Kitchen",
     desc: "A beautifully appointed gourmet cooking center engineered with high-spec appliances, a sprawling granite prep island, and oak finishes."
+  }
+];
+
+// Chalet Carousel Hotlinked Images - Chalet 2 (Les Solans)
+const CHALET_SOLANS_SLIDES = [
+  {
+    url: `${import.meta.env.BASE_URL}assets/.aistudio/house2external.avif`,
+    title: "Chalet Les Solans - Majestic Exterior",
+    desc: "A spacious, elegant luxury chalet in Méribel, bathed in light and surrounded by panoramic mountain views."
+  },
+  {
+    url: `${import.meta.env.BASE_URL}assets/.aistudio/house2living.webp`,
+    title: "Chalet Living Room - High Alpine Luxury",
+    desc: "Large, warm living spaces bathed in natural light, featuring unobstructed mountain vistas and high-end modern comforts."
+  },
+  {
+    url: `${import.meta.env.BASE_URL}assets/.aistudio/house2indoorspa.avif`,
+    title: "Wellness Spa - Heated Indoor Hot Tub",
+    desc: "A stunning custom indoor hot tub surrounded by fine timber and stonework, perfect for unwinding in total comfort."
+  },
+  {
+    url: `${import.meta.env.BASE_URL}assets/.aistudio/house2spa.webp`,
+    title: "In-Chalet Sauna & Relaxation Zone",
+    desc: "Indulge in the dry heat sauna and serene recovery room to soothe muscles after carving down the Savoyard runs."
+  },
+  {
+    url: `${import.meta.env.BASE_URL}assets/.aistudio/house2spa2.webp`,
+    title: "Chalet Les Solans - Wellness Deck",
+    desc: "Unwind on the spacious wellness deck featuring outdoor relaxation spaces overlooking white alpine valleys."
   }
 ];
 
@@ -209,6 +239,9 @@ export default function App() {
   // Hero Background State (randomly initialized on load)
   const [heroIndex] = useState(() => Math.floor(Math.random() * 2));
 
+  // Active chalet state tab selection
+  const [activeChalet, setActiveChalet] = useState<"kalliste" | "solans">("kalliste");
+
   // Countdown State
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -264,13 +297,15 @@ export default function App() {
 
 
 
+  const chaletSlides = activeChalet === "kalliste" ? CHALET_KALLISTE_SLIDES : CHALET_SOLANS_SLIDES;
+
   // Handle Carousel Rotation
   const handleNextSlide = () => {
-    setCarouselIndex((prev) => (prev + 1) % CHALET_SLIDES.length);
+    setCarouselIndex((prev) => (prev + 1) % chaletSlides.length);
   };
 
   const handlePrevSlide = () => {
-    setCarouselIndex((prev) => (prev - 1 + CHALET_SLIDES.length) % CHALET_SLIDES.length);
+    setCarouselIndex((prev) => (prev - 1 + chaletSlides.length) % chaletSlides.length);
   };
 
   const handleDotClick = (idx: number) => {
@@ -601,89 +636,208 @@ export default function App() {
               <p className="font-display text-xs text-[#e9c349] uppercase tracking-[0.25em] mb-4">
                 The Residence
               </p>
-              <h2 className="font-display text-4xl md:text-5xl text-white tracking-wide uppercase mb-6">
-                CHALET KALLISTE
-              </h2>
-              <p className="text-lg leading-relaxed text-[#c4c6cf] mb-8 font-sans">
-                Our base for the week is <strong className="text-white font-normal">Chalet Kalliste</strong> &mdash; a spacious, luxury-certified alpine chalet located in the magnificent Méribel valley. Tucked elegantly in Les Allues with an effortless 6-minute walk to the Olympe 3 gondola, it comfortably accommodates our 12 adventurers with a stunning wood fireplace, high-spec professional kitchen, and local outdoor therapeutic hot tub. 
-              </p>
 
-              {/* Core Amenities */}
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
-                  <Flame size={18} className="text-[#e9c349]" />
-                  <span className="font-display text-xs uppercase tracking-widest text-white">Grand Wood Fireplace</span>
-                </div>
-                <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
-                  <Compass size={18} className="text-[#e9c349]" />
-                  <span className="font-display text-xs uppercase tracking-widest text-white">Outdoor Therapeutic Hot Tub</span>
-                </div>
-                <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
-                  <MapPin size={18} className="text-[#e9c349]" />
-                  <span className="font-display text-xs uppercase tracking-widest text-white">6-Min Walk to Olympe Gondola</span>
-                </div>
+              {/* Chalet Switcher Tabs */}
+              <div className="flex gap-2 p-1 bg-[#141822] border border-[#e9c349]/15 rounded-xl mb-6 font-sans w-full max-w-md">
+                <button
+                  onClick={() => {
+                    setActiveChalet("kalliste");
+                    setCarouselIndex(0);
+                  }}
+                  className={`flex-1 py-2 px-3 font-display text-[10px] sm:text-xs tracking-widest uppercase transition-all duration-300 rounded-lg text-center ${
+                    activeChalet === "kalliste"
+                      ? "bg-[#e9c349] text-[#0c0e14] font-bold shadow-lg"
+                      : "text-[#c4c6cf] hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  Kalliste (12 Guests)
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveChalet("solans");
+                    setCarouselIndex(0);
+                  }}
+                  className={`flex-1 py-2 px-3 font-display text-[10px] sm:text-xs tracking-widest uppercase transition-all duration-300 rounded-lg text-center ${
+                    activeChalet === "solans"
+                      ? "bg-[#e9c349] text-[#0c0e14] font-bold shadow-lg"
+                      : "text-[#c4c6cf] hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  Les Solans (13-15 Guests)
+                </button>
               </div>
 
-              {/* Reservation Details Component */}
-              <div className="p-6 border border-[#e9c349]/15 bg-[#141822]/85 backdrop-blur-md mb-8 rounded-xl shadow-xl">
-                <h3 className="font-display text-lg text-[#e9c349] mb-4 tracking-wider uppercase">
-                  Reservation Details
-                </h3>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeChalet}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {activeChalet === "kalliste" ? (
+                    <>
+                      <h2 className="font-display text-3xl md:text-4xl text-white tracking-wide uppercase mb-6">
+                        CHALET KALLISTE
+                      </h2>
+                      <p className="text-base leading-relaxed text-[#c4c6cf] mb-8 font-sans">
+                        Our base for the week is <strong className="text-white font-normal">Chalet Kalliste</strong> &mdash; a spacious, luxury-certified alpine chalet located in the magnificent Méribel valley. Tucked elegantly in Les Allues with an effortless 6-minute walk to the Olympe 3 gondola, it comfortably accommodates our 12 adventurers with a stunning wood fireplace, high-spec professional kitchen, and local outdoor therapeutic hot tub. 
+                      </p>
 
-                <ul className="font-sans text-sm text-[#c4c6cf] space-y-2">
-                  <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
-                    <span>Dates Scheduled:</span>
-                    <span className="text-white">Jan 23, 2027 - Jan 30, 2027</span>
-                  </li>
-                  <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
-                    <span>Check-In:</span>
-                    <span className="text-white">17:00 PM (Les Allues)</span>
-                  </li>
-                  <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
-                    <span>Check-out:</span>
-                    <span className="text-white">10:00 AM</span>
-                  </li>
-                  <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
-                    <span>Total Chalet Rental Price (USD):</span>
-                    <span className="text-white">$12,346.59</span>
-                  </li>
-                  <li className="flex justify-between pt-1 font-sans">
-                    <span className="font-semibold text-white">Chalet Share Per Head:</span>
-                    <span className="text-[#e9c349] font-display text-base font-semibold">
-                      ${chaletSurcharge}
-                    </span>
-                  </li>
-                </ul>
-              </div>
+                      {/* Core Amenities */}
+                      <div className="space-y-4 mb-8">
+                        <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
+                          <Flame size={18} className="text-[#e9c349]" />
+                          <span className="font-display text-xs uppercase tracking-widest text-white">Grand Wood Fireplace</span>
+                        </div>
+                        <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
+                          <Compass size={18} className="text-[#e9c349]" />
+                          <span className="font-display text-xs uppercase tracking-widest text-white">Outdoor Therapeutic Hot Tub</span>
+                        </div>
+                        <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
+                          <MapPin size={18} className="text-[#e9c349]" />
+                          <span className="font-display text-xs uppercase tracking-widest text-white">6-Min Walk to Olympe Gondola</span>
+                        </div>
+                      </div>
 
-              {/* Price Details */}
-              <div className="flex flex-col gap-1 mb-6 font-sans">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-display text-5xl text-[#e9c349]">
-                    ${chaletSurcharge}
-                  </span>
-                  <span className="font-display text-xs text-[#c4c6cf] tracking-widest uppercase">
-                    / person ($147 / night)
-                  </span>
-                </div>
-                <span className="text-xs text-[#c4c6cf]">
-                  Fixed share based on 12-guest group split for 7 nights. Room allocations finalized.
-                </span>
-              </div>
+                      {/* Reservation Details */}
+                      <div className="p-6 border border-[#e9c349]/15 bg-[#141822]/85 backdrop-blur-md mb-8 rounded-xl shadow-xl">
+                        <h3 className="font-display text-lg text-[#e9c349] mb-4 tracking-wider uppercase">
+                          Reservation Details
+                        </h3>
 
-              {/* VRBO link integration */}
-              <a 
-                href="https://www.vrbo.com/2582868a?regionId=6339399" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="px-8 py-3.5 bg-[#e9c349] text-[#0c0e14] font-display text-sm uppercase tracking-widest border border-[#e9c349] hover:bg-transparent hover:text-[#e9c349] transition-all duration-250 block text-center rounded-lg shadow-lg"
-              >
-                VIEW ORIGINAL VRBO CHALET LISTING
-              </a>
+                        <ul className="font-sans text-sm text-[#c4c6cf] space-y-2">
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Dates Scheduled:</span>
+                            <span className="text-white">Jan 23, 2027 - Jan 30, 2027</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Capacity status:</span>
+                            <span className="text-[#e9c349] font-bold">Standard Base (12 Max)</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Total Chalet Rental Price (USD):</span>
+                            <span className="text-white">$12,346.59</span>
+                          </li>
+                          <li className="flex justify-between pt-1 font-sans">
+                            <span className="font-semibold text-white">Chalet Share Per Head:</span>
+                            <span className="text-[#e9c349] font-display text-base font-semibold">
+                              ${chaletSurcharge}
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Price Details */}
+                      <div className="flex flex-col gap-1 mb-6 font-sans">
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-display text-5xl text-[#e9c349]">
+                            ${chaletSurcharge}
+                          </span>
+                          <span className="font-display text-xs text-[#c4c6cf] tracking-widest uppercase">
+                            / person ($147 / night)
+                          </span>
+                        </div>
+                        <span className="text-xs text-[#c4c6cf]">
+                          Fixed share based on 12-guest group split for 7 nights. Room allocations finalized.
+                        </span>
+                      </div>
+
+                      <a 
+                        href="https://www.vrbo.com/2582868a?regionId=6339399" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-8 py-3.5 bg-[#e9c349] text-[#0c0e14] font-display text-sm uppercase tracking-widest border border-[#e9c349] hover:bg-transparent hover:text-[#e9c349] transition-all duration-250 block text-center rounded-lg shadow-lg"
+                      >
+                        VIEW ORIGINAL VRBO CHALET LISTING
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <h2 className="font-display text-3xl md:text-4xl text-white tracking-wide uppercase mb-6">
+                        CHALET LES SOLANS
+                      </h2>
+                      <p className="text-base leading-relaxed text-[#c4c6cf] mb-8 font-sans">
+                        Chalet Les Solans is a spacious and elegant luxury chalet in Méribel, ideal for stays with family or friends. Bathed in light, it offers large, warm living spaces, unobstructed views of the mountains and a wellness area with spa and sauna to relax after skiing. An authentic and refined place, designed to share unforgettable moments in the heart of the Alps.
+                        <br /><br />
+                        <strong className="text-[#e9c349]">Group Notice:</strong> If our guest count exceeds 12, we will pivot our entire reservation to this chalet, which comfortably accommodates up to 15 guests.
+                      </p>
+
+                      {/* Core Amenities */}
+                      <div className="space-y-4 mb-8">
+                        <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
+                          <Sparkles size={18} className="text-[#e9c349]" />
+                          <span className="font-display text-xs uppercase tracking-widest text-white">Wellness Area (Spa & Sauna)</span>
+                        </div>
+                        <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
+                          <Flame size={18} className="text-[#e9c349]" />
+                          <span className="font-display text-xs uppercase tracking-widest text-white">Ski In / Ski Out Slopes Access</span>
+                        </div>
+                        <div className="flex items-center gap-4 border-b border-[#e9c349]/20 pb-2">
+                          <Compass size={18} className="text-[#e9c349]" />
+                          <span className="font-display text-xs uppercase tracking-widest text-white">Large Fireplace & Mountain Views</span>
+                        </div>
+                      </div>
+
+                      {/* Reservation Details */}
+                      <div className="p-6 border border-[#e9c349]/15 bg-[#141822]/85 backdrop-blur-md mb-8 rounded-xl shadow-xl">
+                        <h3 className="font-display text-lg text-[#e9c349] mb-4 tracking-wider uppercase">
+                          Pivot Plan Details
+                        </h3>
+
+                        <ul className="font-sans text-sm text-[#c4c6cf] space-y-2">
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Dates Scheduled:</span>
+                            <span className="text-white">Jan 23, 2027 - Jan 30, 2027</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Capacity status:</span>
+                            <span className="text-[#e9c349] font-bold">Pivot Option (Up to 15 Guests)</span>
+                          </li>
+                          <li className="flex justify-between border-b border-[#e9c349]/10 pb-1 font-sans">
+                            <span>Location:</span>
+                            <span className="text-white">Méribel Valley</span>
+                          </li>
+                          <li className="flex justify-between pt-1 font-sans">
+                            <span className="font-semibold text-white">Chalet Share status:</span>
+                            <span className="text-white italic">
+                              Recalculated upon group size increase
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* Price Details */}
+                      <div className="flex flex-col gap-1 mb-6 font-sans">
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-display text-3xl text-[#e9c349]">
+                            12-15 Guests
+                          </span>
+                          <span className="font-display text-xs text-[#c4c6cf] tracking-widest uppercase">
+                            Expanded Capacity
+                          </span>
+                        </div>
+                        <span className="text-xs text-[#c4c6cf]">
+                          Pivot triggered automatically at 13+ attendees. Rates vary depending on final headcount.
+                        </span>
+                      </div>
+
+                      <a 
+                        href="https://www.vrbo.com/2631464a?dateless=true" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-8 py-3.5 bg-[#e9c349] text-[#0c0e14] font-display text-sm uppercase tracking-widest border border-[#e9c349] hover:bg-transparent hover:text-[#e9c349] transition-all duration-250 block text-center rounded-lg shadow-lg"
+                      >
+                        VIEW ORIGINAL VRBO CHALET LISTING
+                      </a>
+                    </>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* Carousel display (Col 7) */}
-            <div className="lg:col-span-7 h-[500px] md:h-[600px] border border-[#e9c349]/20 p-2.5 relative order-1 lg:order-2 bg-[#141822]/60 shadow-2xl rounded-xl backdrop-blur-sm">
+            <div className="lg:col-span-7 h-[500px] md:h-[600px] border border-[#e9c349]/20 p-2.5 relative order-1 lg:order-2 bg-[#141822]/60 shadow-2xl rounded-xl backdrop-blur-sm group">
               <div className="relative w-full h-full overflow-hidden border border-[#e9c349]/15 rounded-lg">
                 
                 {/* Active Image with absolute animation */}
@@ -697,19 +851,19 @@ export default function App() {
                     className="absolute inset-0 w-full h-full"
                   >
                     <img 
-                      alt={CHALET_SLIDES[carouselIndex].title} 
+                      alt={chaletSlides[carouselIndex].title} 
                       className="w-full h-full object-cover grayscale-[20%] contrast-[1.1] brightness-[0.85]" 
-                      src={CHALET_SLIDES[carouselIndex].url}
+                      src={chaletSlides[carouselIndex].url}
                       referrerPolicy="no-referrer"
                     />
 
                     {/* Image Caption overlay */}
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/50 to-transparent p-6 pt-16 z-10 flex flex-col justify-end">
                       <h4 className="font-display text-xl text-[#e9c349] uppercase tracking-wide">
-                        {CHALET_SLIDES[carouselIndex].title}
+                        {chaletSlides[carouselIndex].title}
                       </h4>
                       <p className="text-sm font-sans text-gray-200 mt-1 max-w-lg">
-                        {CHALET_SLIDES[carouselIndex].desc}
+                        {chaletSlides[carouselIndex].desc}
                       </p>
                     </div>
                   </motion.div>
@@ -739,12 +893,12 @@ export default function App() {
 
                 {/* Carousel Progress indicators */}
                 <div className="absolute top-4 right-4 z-20 bg-black/70 border border-[#e9c349]/30 px-3 py-1 font-display text-[10px] tracking-widest uppercase text-white backdrop-blur-sm">
-                  Slide {carouselIndex + 1} / {CHALET_SLIDES.length}
+                  Slide {carouselIndex + 1} / {chaletSlides.length}
                 </div>
 
                 {/* Bottom Dot controller */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                  {CHALET_SLIDES.map((_, idx) => (
+                  {chaletSlides.map((_, idx) => (
                     <button 
                       key={idx}
                       onClick={() => handleDotClick(idx)}
