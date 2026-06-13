@@ -255,6 +255,21 @@ export default function App() {
   const [mapZoomed, setMapZoomed] = useState(false);
   const [activeSectorId, setActiveSectorId] = useState<string>("meribel");
 
+  // Floating RSVP visibility state based on scroll
+  const [showFloatingRsvp, setShowFloatingRsvp] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowFloatingRsvp(true);
+      } else {
+        setShowFloatingRsvp(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Dynamic Budget Calculator States
   const [guestsCount, setGuestsCount] = useState(12);
   const nightsCount = 7;  // Flat 7 nights
@@ -428,9 +443,10 @@ export default function App() {
               href="https://partiful.com/e/OTJC8p2jW3qjwJDjhT84?c=R0xhMUpZ" 
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:block px-5 py-1.5 font-display text-xs tracking-widest uppercase border border-[#e9c349] bg-[#e9c349] text-[#0c0e14] hover:bg-[#0c0e14] hover:text-[#e9c349] transition-all rounded-lg block text-center"
+              className="hidden sm:inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[#e9c349] via-[#f7d663] to-[#e9c349] bg-[length:200%_auto] hover:bg-[100%_center] text-[#0c0e14] hover:scale-[1.03] transition-all duration-500 rounded-xl font-display text-xs font-bold tracking-widest uppercase shadow-md shadow-[#e9c349]/20 hover:shadow-lg hover:shadow-[#e9c349]/40 text-center select-none"
             >
-              RSVP ON PARTIFUL
+              <span>RSVP ON PARTIFUL</span>
+              <Sparkles size={12} className="animate-pulse text-[#0c0e14]" />
             </a>
 
             {/* Hamburger Button */}
@@ -515,9 +531,10 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full py-3 font-display text-xs tracking-widest uppercase border border-[#e9c349] bg-[#e9c349] text-[#0c0e14] hover:bg-[#0c0e14] hover:text-[#e9c349] transition-all rounded-lg block text-center font-bold"
+                  className="w-full py-4 bg-gradient-to-r from-[#e9c349] via-[#f7d663] to-[#e9c349] bg-[length:200%_auto] hover:bg-[100%_center] text-[#0c0e14] hover:scale-[1.02] transition-all duration-500 rounded-xl font-display text-xs font-bold tracking-widest uppercase shadow-md shadow-[#e9c349]/20 flex items-center justify-center gap-2 select-none font-bold"
                 >
-                  RSVP ON PARTIFUL
+                  <span>RSVP ON PARTIFUL</span>
+                  <Sparkles size={14} className="animate-pulse text-[#0c0e14]" />
                 </a>
               </div>
             </motion.div>
@@ -2284,6 +2301,29 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Concierge RSVP Action */}
+      <AnimatePresence>
+        {showFloatingRsvp && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            className="fixed bottom-6 right-6 z-40"
+          >
+            <a
+              href="https://partiful.com/e/OTJC8p2jW3qjwJDjhT84?c=R0xhMUpZ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-gradient-to-r from-[#e9c349] via-[#f7d663] to-[#e9c349] bg-[length:200%_auto] text-[#0c0e14] hover:bg-[100%_center] transition-all duration-500 font-display text-xs font-bold tracking-widest uppercase rounded-full shadow-2xl shadow-[#e9c349]/40 hover:shadow-xl hover:shadow-[#e9c349]/60 hover:-translate-y-1 active:translate-y-0 select-none border border-[#e9c349]/20"
+            >
+              <span>Concierge RSVP</span>
+              <Sparkles size={14} className="animate-pulse text-[#0c0e14]" />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
